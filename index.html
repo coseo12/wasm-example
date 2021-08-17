@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WASM</title>
+  </head>
+  <body>
+    <!-- <script src="wasm_exec.js"></script>
+    <script>
+      const go = new Go();
+      WebAssembly.instantiateStreaming(
+        fetch('test.wasm'),
+        go.importObject
+      ).then((result) => {
+        go.run(result.instance);
+      });
+    </script> -->
+    <!--
+	Add the following polyfill for Microsoft Edge 17/18 support:
+	<script src="https://cdn.jsdelivr.net/npm/text-encoding@0.7.0/lib/encoding.min.js"></script>
+	(see https://caniuse.com/#feat=textencoder)
+	-->
+
+    <script src="wasm_exec.js"></script>
+    <script>
+      if (!WebAssembly.instantiateStreaming) {
+        // polyfill
+        WebAssembly.instantiateStreaming = async (resp, importObject) => {
+          const source = await (await resp).arrayBuffer();
+          return await WebAssembly.instantiate(source, importObject);
+        };
+      }
+
+      const go = new Go();
+      let mod, inst;
+      WebAssembly.instantiateStreaming(
+        fetch('wasm/test.wasm'),
+        go.importObject
+      ).then(async (result) => {
+        mod = result.module;
+        inst = result.instance;
+        await go.run(inst);
+      });
+
+      function subtract(arg) {
+        console.log(...arg);
+      }
+    </script>
+
+    <input type="text" id="value1" />
+    <input type="text" id="value2" />
+
+    <button onClick="add('value1', 'value2', 'result');" id="addButton">
+      Add
+    </button>
+    <button
+      onClick="subtract(['value1', 'value2', 'result']);"
+      id="subtractButton"
+    >
+      Subtract
+    </button>
+
+    <input type="text" id="result" />
+  </body>
+</html>
