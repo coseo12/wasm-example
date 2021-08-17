@@ -47,6 +47,23 @@
       function subtract(arg) {
         console.log(...arg);
       }
+
+      function calculateJs(number) {
+        console.time('calculateJs');
+        let result = [0, 1];
+        if (number === 0) {
+          console.log([0]);
+        }
+        if (number === 1) {
+          console.log([0, 1]);
+        }
+        for (let i = 2; i <= number; i++) {
+          result.push(result[i - 2] + result[i - 1]);
+        }
+        console.log(result);
+        console.timeEnd('calculateJs');
+        return 0;
+      }
     </script>
 
     <input type="text" id="value1" />
@@ -63,5 +80,11 @@
     </button>
 
     <input type="text" id="result" />
+
+    <br />
+    <br />
+
+    <button onClick="calculateGo(100000);" id="calculateGo">calculateGo</button>
+    <button onClick="calculateJs(100000);" id="calculateJs">calculateJs</button>
   </body>
 </html>
