@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// export add
 func add(this js.Value, i []js.Value) interface{} {
 	value1 := js.Global().Get("document").Call("getElementById", i[0].String()).Get("value").String()
 	value2 := js.Global().Get("document").Call("getElementById", i[1].String()).Get("value").String()
@@ -21,7 +22,7 @@ func add(this js.Value, i []js.Value) interface{} {
 	return js.ValueOf(int1 + int2)
 }
 
-
+// export calculateGo
 func calculateGo(this js.Value, i []js.Value) interface{} {
 	start := time.Now()
 	number := i[0].Int()
@@ -50,7 +51,7 @@ func main() {
 	c1 := make(chan struct{})
 	log.Println("WASM Go Initialized")
 	registerCallbacks()
-	js.Global().Call("subtract", []interface{}{"a", "b", "c"})
+	// js.Global().Call("subtract", []interface{}{"a", "b", "c"})
 	<-c1
 }
 
