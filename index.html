@@ -23,7 +23,7 @@
 	(see https://caniuse.com/#feat=textencoder)
 	-->
 
-    <script src="wasm_exec.js"></script>
+    <script src="./wasm/wasm_exec.js"></script>
     <script>
       if (!WebAssembly.instantiateStreaming) {
         // polyfill
@@ -39,6 +39,7 @@
         fetch('wasm/test.wasm'),
         go.importObject
       ).then(async (result) => {
+        console.log(result);
         mod = result.module;
         inst = result.instance;
         await go.run(inst);
