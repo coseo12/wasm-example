@@ -48,10 +48,10 @@ func registerCallbacks() {
 }
 
 func main() {
-	c1 := make(chan struct{})
+	// c1 := make(chan struct{})
 	log.Println("WASM Go Initialized")
 	registerCallbacks()
 	// js.Global().Call("subtract", []interface{}{"a", "b", "c"})
-	<-c1
+	// <-c1
 }
 
