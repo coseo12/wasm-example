@@ -25,3 +25,5 @@ ls -alh $(go env GOROOT)/misc/wasm/wasm_exec.js
   },
   "go.installDependenciesWhenBuilding": false
 ```
+
+- [gettign start](https://github.com/golang/go/wiki/WebAssembly#getting-started)
